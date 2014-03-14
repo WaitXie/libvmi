@@ -108,15 +108,15 @@ typedef enum page_mode {
 
 typedef enum page_size {
 
-    VMI_PS_UNKNOWN,
+    VMI_PS_UNKNOWN = ..., /**< page size unknown */
 
-    VMI_PS_4KB,
+    VMI_PS_4KB = ..., /**< 4Kb */
 
-    VMI_PS_2MB,
+    VMI_PS_2MB = ..., /**< 2Mb */
 
-    VMI_PS_4MB,
+    VMI_PS_4MB = ..., /**< 4Mb */
 
-    VMI_PS_1GB
+    VMI_PS_1GB = ... /**< 1Gb */
 
 } page_size_t;
 
@@ -1500,11 +1500,11 @@ typedef enum {
  *  recorded.
  */
 typedef enum {
-    VMI_REGACCESS_INVALID,
-    VMI_REGACCESS_N,
-    VMI_REGACCESS_R,
-    VMI_REGACCESS_W,
-    VMI_REGACCESS_RW,
+    VMI_REGACCESS_INVALID = ...,
+    VMI_REGACCESS_N = ...,
+    VMI_REGACCESS_R = ...,
+    VMI_REGACCESS_W = ...,
+    VMI_REGACCESS_RW = ...,
 } vmi_reg_access_t;
 
 /* Page permissions used both for configuring type of memory operations to
@@ -1512,16 +1512,16 @@ typedef enum {
  *  recorded.
  */
 typedef enum {
-    VMI_MEMACCESS_INVALID,
-    VMI_MEMACCESS_N,
-    VMI_MEMACCESS_R,
-    VMI_MEMACCESS_W,
-    VMI_MEMACCESS_X,
-    VMI_MEMACCESS_RW,
-    VMI_MEMACCESS_RX,
-    VMI_MEMACCESS_WX,
-    VMI_MEMACCESS_RWX,
-    VMI_MEMACCESS_X_ON_WRITE
+    VMI_MEMACCESS_INVALID    = ...,
+    VMI_MEMACCESS_N          = ...,
+    VMI_MEMACCESS_R          = ...,
+    VMI_MEMACCESS_W          = ...,
+    VMI_MEMACCESS_X          = ...,
+    VMI_MEMACCESS_RW         = ...,
+    VMI_MEMACCESS_RX         = ...,
+    VMI_MEMACCESS_WX         = ...,
+    VMI_MEMACCESS_RWX        = ...,
+    VMI_MEMACCESS_X_ON_WRITE = ...
 } vmi_mem_access_t;
 
 /* The level of granularity used in the configuration of a memory event.
