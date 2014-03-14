@@ -106,19 +106,19 @@ typedef enum page_mode {
     VMI_PM_IA32E    /**< IA-32e paging */
 } page_mode_t;
 
-//typedef enum page_size {
-//
-//    VMI_PS_UNKNOWN = 0ULL, /**< page size unknown */
-//
-//    VMI_PS_4KB = 0x1000ULL, /**< 4Kb */
-//
-//    VMI_PS_2MB = 0x200000ULL, /**< 2Mb */
-//
-//    VMI_PS_4MB = 0x400000ULL, /**< 4Mb */
-//
-//    VMI_PS_1GB = 0x4000000ULL /**< 1Gb */
-//
-//} page_size_t;
+typedef enum page_size {
+
+    VMI_PS_UNKNOWN,
+
+    VMI_PS_4KB,
+
+    VMI_PS_2MB,
+
+    VMI_PS_4MB,
+
+    VMI_PS_1GB
+
+} page_size_t;
 
 typedef uint64_t reg_t;
 typedef enum registers {
@@ -1311,7 +1311,7 @@ status_t vmi_pause_vm(
 status_t vmi_resume_vm(
     vmi_instance_t vmi);
 
-#if ENABLE_SHM_SNAPSHOT == 1
+//#if ENABLE_SHM_SNAPSHOT == 1
 /**
  * Create a shm-snapshot and enter "shm-snapshot" mode.
  *  (KVM only, Xen support is pending.)
@@ -1323,8 +1323,8 @@ status_t vmi_resume_vm(
  * @param[in] vmi LibVMI instance
  * @return VMI_SUCCESS or VMI_FAILURE
  */
-status_t vmi_shm_snapshot_create(
-    vmi_instance_t vmi);
+//status_t vmi_shm_snapshot_create(
+//    vmi_instance_t vmi);
 
 /**
  * Destroy existed shm-snapshot and exit "shm-snapshot" mode.
@@ -1337,8 +1337,8 @@ status_t vmi_shm_snapshot_create(
  * @param[in] vmi LibVMI instance
  * @return VMI_SUCCESS or VMI_FAILURE
  */
-status_t vmi_shm_snapshot_destroy(
-    vmi_instance_t vmi);
+//status_t vmi_shm_snapshot_destroy(
+//    vmi_instance_t vmi);
 
 /**
  * Direct Guest Physical Memory Access:  A similar memory read semantic to
@@ -1350,11 +1350,11 @@ status_t vmi_shm_snapshot_destroy(
  * @param[in] count the expected count of bytes
  * @return the actual count that less or equal than count[in]
  */
-size_t vmi_get_dgpma(
-    vmi_instance_t vmi,
-    addr_t paddr,
-    void **buf_ptr,
-    size_t count);
+//size_t vmi_get_dgpma(
+//    vmi_instance_t vmi,
+//    addr_t paddr,
+//    void **buf_ptr,
+//    size_t count);
 
 /**
  * Direct Guest Virtual Memory Access:  A similar memory read semantic to
@@ -1367,13 +1367,13 @@ size_t vmi_get_dgpma(
  * @param[in] count the expected count of bytes
  * @return the actual count that less or equal than count[in]
  */
-size_t vmi_get_dgvma(
-    vmi_instance_t vmi,
-    addr_t vaddr,
-    pid_t pid,
-    void **buf_ptr,
-    size_t count);
-#endif
+//size_t vmi_get_dgvma(
+//    vmi_instance_t vmi,
+//    addr_t vaddr,
+//    pid_t pid,
+//    void **buf_ptr,
+//    size_t count);
+//#endif
 
 /**
  * Removes all entries from LibVMI's internal virtual to physical address
@@ -1493,18 +1493,18 @@ typedef enum {
 } vmi_event_type_t;
 
 /* max number of vcpus we can set single step on at one time for a domain */
-#define MAX_SINGLESTEP_VCPUS 32
+#define MAX_SINGLESTEP_VCPUS ...
 
 /* Register operations used both for configuring type of register operations to
  *  monitor and also to determine the type of access causing an event to be
  *  recorded.
  */
 typedef enum {
-    VMI_REGACCESS_INVALID = 0,
-    VMI_REGACCESS_N = (1 << 0),
-    VMI_REGACCESS_R = (1 << 1),
-    VMI_REGACCESS_W = (1 << 2),
-    VMI_REGACCESS_RW = (VMI_REGACCESS_R | VMI_REGACCESS_W),
+    VMI_REGACCESS_INVALID,
+    VMI_REGACCESS_N,
+    VMI_REGACCESS_R,
+    VMI_REGACCESS_W,
+    VMI_REGACCESS_RW,
 } vmi_reg_access_t;
 
 /* Page permissions used both for configuring type of memory operations to
@@ -1512,16 +1512,16 @@ typedef enum {
  *  recorded.
  */
 typedef enum {
-    VMI_MEMACCESS_INVALID    = 0,
-    VMI_MEMACCESS_N          = (1 << 0),
-    VMI_MEMACCESS_R          = (1 << 1),
-    VMI_MEMACCESS_W          = (1 << 2),
-    VMI_MEMACCESS_X          = (1 << 3),
-    VMI_MEMACCESS_RW         = (VMI_MEMACCESS_R | VMI_MEMACCESS_W),
-    VMI_MEMACCESS_RX         = (VMI_MEMACCESS_R | VMI_MEMACCESS_X),
-    VMI_MEMACCESS_WX         = (VMI_MEMACCESS_W | VMI_MEMACCESS_X),
-    VMI_MEMACCESS_RWX        = (VMI_MEMACCESS_R | VMI_MEMACCESS_W | VMI_MEMACCESS_X),
-    VMI_MEMACCESS_X_ON_WRITE = (1 << 4)
+    VMI_MEMACCESS_INVALID,
+    VMI_MEMACCESS_N,
+    VMI_MEMACCESS_R,
+    VMI_MEMACCESS_W,
+    VMI_MEMACCESS_X,
+    VMI_MEMACCESS_RW,
+    VMI_MEMACCESS_RX,
+    VMI_MEMACCESS_WX,
+    VMI_MEMACCESS_RWX,
+    VMI_MEMACCESS_X_ON_WRITE
 } vmi_mem_access_t;
 
 /* The level of granularity used in the configuration of a memory event.
@@ -1692,53 +1692,53 @@ struct vmi_event {
 };
 
 /* Enables the correct bit for the given vcpu number x */
-#define SET_VCPU_SINGLESTEP(ss_event, x) \
-        ss_event.vcpus |= (1 << x)
+//#define SET_VCPU_SINGLESTEP(ss_event, x) \
+//        ss_event.vcpus |= (1 << x)
 
 /* Disables the correct bit for a given vcpu number x */
-#define UNSET_VCPU_SINGLESTEP(ss_event, x) \
-        ss_event.vcpus &= ~(1 << x)
+//#define UNSET_VCPU_SINGLESTEP(ss_event, x) \
+//        ss_event.vcpus &= ~(1 << x)
 
 /* Check to see if a vcpu number has single step enabled */
-#define CHECK_VCPU_SINGLESTEP(ss_event, x) \
-        (ss_event.vcpus) & (1 << x)
+//#define CHECK_VCPU_SINGLESTEP(ss_event, x) \
+//        (ss_event.vcpus) & (1 << x)
 
 /* Convenience macro to setup a singlestep event */
-#define SETUP_SINGLESTEP_EVENT(_event, _vcpu_mask, _callback) \
-        do { \
-            (_event)->type = VMI_EVENT_SINGLESTEP; \
-            (_event)->ss_event.vcpus = _vcpu_mask; \
-            (_event)->callback = _callback; \
-        } while(0)
+//#define SETUP_SINGLESTEP_EVENT(_event, _vcpu_mask, _callback) \
+//        do { \
+//            (_event)->type = VMI_EVENT_SINGLESTEP; \
+//            (_event)->ss_event.vcpus = _vcpu_mask; \
+//            (_event)->callback = _callback; \
+//        } while(0)
 
 /* Convenience macro to setup a memory event */
-#define SETUP_MEM_EVENT(_event, _addr, _granularity, _access, _callback) \
-        do { \
-            (_event)->type = VMI_EVENT_MEMORY; \
-            (_event)->mem_event.physical_address = _addr; \
-            (_event)->mem_event.granularity = _granularity; \
-            (_event)->mem_event.in_access = _access; \
-            (_event)->mem_event.npages = 1; \
-            (_event)->callback = _callback; \
-        } while(0)
+//#define SETUP_MEM_EVENT(_event, _addr, _granularity, _access, _callback) \
+//        do { \
+//            (_event)->type = VMI_EVENT_MEMORY; \
+//            (_event)->mem_event.physical_address = _addr; \
+//            (_event)->mem_event.granularity = _granularity; \
+//            (_event)->mem_event.in_access = _access; \
+//            (_event)->mem_event.npages = 1; \
+//            (_event)->callback = _callback; \
+//        } while(0)
 
 /* Convenience macro to setup a register event */
-#define SETUP_REG_EVENT(_event, _reg, _access, _equal, _callback) \
-        do { \
-            (_event)->type = VMI_EVENT_REGISTER; \
-            (_event)->reg_event.reg = _reg; \
-            (_event)->reg_event.in_access = _access; \
-            (_event)->reg_event.equal = _equal; \
-            (_event)->callback = _callback; \
-        } while(0)
+//#define SETUP_REG_EVENT(_event, _reg, _access, _equal, _callback) \
+//        do { \
+//            (_event)->type = VMI_EVENT_REGISTER; \
+//            (_event)->reg_event.reg = _reg; \
+//            (_event)->reg_event.in_access = _access; \
+//            (_event)->reg_event.equal = _equal; \
+//            (_event)->callback = _callback; \
+//        } while(0)
 
 /* Convenience macro to setup a interrupt event */
-#define SETUP_INTERRUPT_EVENT(_event, _reinject, _callback) \
-        do { \
-            (_event)->type = VMI_EVENT_INTERRUPT; \
-            (_event)->interrupt_event.reinject = _reinject; \
-            (_event)->callback = _callback; \
-        } while(0)
+//#define SETUP_INTERRUPT_EVENT(_event, _reinject, _callback) \
+//        do { \
+//            (_event)->type = VMI_EVENT_INTERRUPT; \
+//            (_event)->interrupt_event.reinject = _reinject; \
+//            (_event)->callback = _callback; \
+//        } while(0)
 
 /**
  * Register to handle the event specified by the vmi_event object.
