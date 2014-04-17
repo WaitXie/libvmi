@@ -84,14 +84,15 @@ typedef enum os {
 typedef enum win_ver {
 
     VMI_OS_WINDOWS_NONE,    /**< Not Windows */
-
     VMI_OS_WINDOWS_UNKNOWN, /**< Is Windows, not sure which */
-    VMI_OS_WINDOWS_2000,
-    VMI_OS_WINDOWS_XP,
-    VMI_OS_WINDOWS_2003,
-    VMI_OS_WINDOWS_VISTA,
-    VMI_OS_WINDOWS_2008,
-    VMI_OS_WINDOWS_7
+
+    VMI_OS_WINDOWS_2000 = ...,
+    VMI_OS_WINDOWS_XP = ...,
+    VMI_OS_WINDOWS_2003 = ...,
+    VMI_OS_WINDOWS_VISTA = ...,
+    VMI_OS_WINDOWS_2008 = ...,
+    VMI_OS_WINDOWS_7 = ...,
+    VMI_OS_WINDOWS_8 = ...
 } win_ver_t;
 
 /* Three paging modes from Intel Vol3a Section 4.1.1 */
@@ -1578,6 +1579,9 @@ typedef struct {
                                   */
 
     reg_t value;                 /* Register value read or written */
+
+    reg_t previous;              /* Previous value of register
+                                    (only for CR0/CR3/CR4) */
 
     vmi_reg_access_t out_access; /* Type of register access that triggered
                                   * the event

@@ -33,7 +33,7 @@ __title__ = "pyvmi"
 __summary__ = "Python binding to LibVMI"
 __uri__ = "http://www.libvmi.com"
 
-__version__ = "0.9.0"
+__version__ = "0.11.0"
 
 __author__ = "Bryan D. Payne"
 __email__ = "bdpayne@acm.org"
