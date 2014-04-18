@@ -52,7 +52,7 @@ def get_pid_and_proc(vmi):
 
 def main(argv):
     """ Prints process information for given target."""
-    with pyvmi.init(argv[1]) as vmi:
+    with pyvmi.Pyvmi(argv[1]) as vmi:
         for pid, procname in get_pid_and_proc(vmi):
             print "[%5d] %s" % (pid, procname)
 

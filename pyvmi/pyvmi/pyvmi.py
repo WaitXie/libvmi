@@ -5,7 +5,7 @@ virtual machine or in a file containing a dump of a system's physical memory.
 
 Author: Bryan D. Payne (bdpayne@acm.org)
 
-Copyright 2013 Bryan D. Payne
+Copyright 2014 Bryan D. Payne
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -25,20 +25,20 @@ from .libvmi import Libvmi, C
 
 class Pyvmi(object):
     offset_names = {
-            'Linux': {
-                'tasks_offset': 'linux_tasks',
-                'mm_offset': 'linux_mm',
-                'pid_offset': 'linux_pid',
-                'name_offset': 'linux_name',
-                'pgd_offset': 'linux_pgd',
-                },
-            'Windows': {
-                'tasks_offset': 'win_tasks',
-                'pdbase_offset': 'win_pdbase',
-                'pid_offset': 'win_pid',
-                'name_offset': 'win_pname',
-                },
-            }
+        'Linux': {
+            'tasks_offset': 'linux_tasks',
+            'mm_offset': 'linux_mm',
+            'pid_offset': 'linux_pid',
+            'name_offset': 'linux_name',
+            'pgd_offset': 'linux_pgd',
+        },
+        'Windows': {
+            'tasks_offset': 'win_tasks',
+            'pdbase_offset': 'win_pdbase',
+            'pid_offset': 'win_pid',
+            'name_offset': 'win_pname',
+        },
+    }
 
     def __init__(self, name):
         self.vmi = Libvmi().init(C.VMI_AUTO | C.VMI_INIT_COMPLETE, name)
@@ -96,7 +96,8 @@ class Pyvmi(object):
         elif va:
             return self.vmi.translate_uv2p(va, pid)
 
-    def read(self, pa=None, va=None, ksym=None, pid=0, size=None, string=False):
+    def read(self, pa=None, va=None, ksym=None,
+             pid=0, size=None, string=False):
         if not size:
             size = self._addrlen()
 

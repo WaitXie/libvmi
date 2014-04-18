@@ -6,7 +6,7 @@ virtual machine or in a file containing a dump of a system's physical memory.
 
 Author: Bryan D. Payne (bdpayne@acm.org)
 
-Copyright 2013 Bryan D. Payne
+Copyright 2014 Bryan D. Payne
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -20,13 +20,8 @@ Copyright 2013 Bryan D. Payne
    See the License for the specific language governing permissions and
    limitations under the License.
 """
+import pyvmi
 from setuptools import setup
-
-__about__ = {}
-
-with open('pyvmi/__about__.py') as fp:
-    exec(fp.read(), None, __about__)
-
 
 try:
     import pyvmi.interface
@@ -39,17 +34,20 @@ else:
 
 
 setup(
-    name=__about__['__title__'],
-    version=__about__['__version__'],
+    name=pyvmi.__title__,
+    version=pyvmi.__version__,
 
-    description=__about__['__summary__'],
+    description=pyvmi.__summary__,
     long_description=open('README').read(),
-    url=__about__['__uri__'],
-    license=open('LICENSE').read(),
+    url=pyvmi.__uri__,
+    license=pyvmi.__license__,
 
-    author=__about__['__author__'],
-    author_email=__about__['__email__'],
+    author=pyvmi.__author__,
+    author_email=pyvmi.__email__,
 
+    setup_requires=[
+        'cffi',
+    ],
     install_requires=[
         'cffi',
     ],

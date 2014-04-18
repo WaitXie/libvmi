@@ -5,7 +5,7 @@ virtual machine or in a file containing a dump of a system's physical memory.
 
 Author: Bryan D. Payne (bdpayne@acm.org)
 
-Copyright 2013 Bryan D. Payne
+Copyright 2014 Bryan D. Payne
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -40,15 +40,14 @@ class PyVmiAddressSpace(addrspace.BaseAddressSpace):
 
     def __init__(self, base, config, layered=False, **kwargs):
         addrspace.BaseAddressSpace.__init__(self, base, config, **kwargs)
-        self.as_assert(base == None or layered, "Must be first Address Space")
-        self.as_assert(
-                config.LOCATION.startswith("vmi://"),
-                "Location doesn't start with vmi://")
+        self.as_assert(base is None or layered, 'Must be first Address Space')
+        self.as_assert(config.LOCATION.startswith('vmi://'),
+                       "Location doesn't start with vmi://")
         self.config = dict(inittype="partial")
-        if config.LOCATION.find("domid/") == 6:
+        if config.LOCATION.find('domid/') == 6:
             self.domid = int(urllib.url2pathname(config.LOCATION[12:]))
-            self.config['domid']=self.domid
-        elif config.LOCATION.find("name/") == 6:
+            self.config['domid'] = self.domid
+        elif config.LOCATION.find('name/') == 6:
             self.name = urllib.url2pathname(config.LOCATION[11:])
             self.config['name'] = self.name
         else:
@@ -57,7 +56,7 @@ class PyVmiAddressSpace(addrspace.BaseAddressSpace):
 
         self.vmi = Libvmi().init(C.VMI_AUTO | C.VMI_INIT_PARTIAL,
                                  self.config['name'])
-        self.as_assert(not self.vmi is None, "VM not found")
+        self.as_assert(self.vmi is not None, 'VM not found')
         self.dtb = self.get_cr3()
 
     def __read_bytes(self, addr, length, pad):
@@ -88,7 +87,7 @@ class PyVmiAddressSpace(addrspace.BaseAddressSpace):
         return self.__read_bytes(addr, length, pad=True)
 
     def is_valid_address(self, addr):
-        if addr == None:
+        if addr is None:
             return False
         return 4096 < addr < self.vmi.get_memsize() - 1
 

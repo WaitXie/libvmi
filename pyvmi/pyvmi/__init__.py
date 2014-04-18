@@ -5,7 +5,7 @@ virtual machine or in a file containing a dump of a system's physical memory.
 
 Author: Bryan D. Payne (bdpayne@acm.org)
 
-Copyright 2013 Bryan D. Payne
+Copyright 2014 Bryan D. Payne
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -19,5 +19,23 @@ Copyright 2013 Bryan D. Payne
    See the License for the specific language governing permissions and
    limitations under the License.
 """
-from . import __about__
-from .pyvmi import Pyvmi as init
+from __future__ import absolute_import
+from __future__ import division
+
+
+__all__ = [
+    "__title__", "__summary__", "__uri__", "__version__", "__author__",
+    "__email__", "__copyright__",
+]
+
+__title__ = "pyvmi"
+__summary__ = "Python binding to LibVMI"
+__uri__ = "http://www.libvmi.com"
+
+__version__ = "0.11.0"
+
+__author__ = "Bryan D. Payne"
+__email__ = "bdpayne@acm.org"
+
+__copyright__ = "Copyright 2014 Bryan Payne"
+__license__ = "Apache License 2.0"

@@ -5,7 +5,7 @@ virtual machine or in a file containing a dump of a system's physical memory.
 
 Author: Bryan D. Payne (bdpayne@acm.org)
 
-Copyright 2013 Bryan D. Payne
+Copyright 2014 Bryan D. Payne
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.

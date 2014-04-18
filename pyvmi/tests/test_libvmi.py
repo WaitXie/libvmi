@@ -1,4 +1,3 @@
-# pylint: disable=C0301
 """
 PyVMI is a python language wrapper for the LibVMI Library. The LibVMI Library
 is an introspection library that simplifies access to memory in a target
@@ -6,7 +5,7 @@ virtual machine or in a file containing a dump of a system's physical memory.
 
 Author: Bryan D. Payne (bdpayne@acm.org)
 
-Copyright 2013 Bryan D. Payne
+Copyright 2014 Bryan D. Payne
 
    Licensed under the Apache License, Version 2.0 (the "License");
    you may not use this file except in compliance with the License.
@@ -20,22 +19,10 @@ Copyright 2013 Bryan D. Payne
    See the License for the specific language governing permissions and
    limitations under the License.
 """
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import unicode_literals
+import pytest
 
-__all__ = [
-    "__title__", "__summary__", "__uri__", "__version__", "__author__",
-    "__email__", "__copyright__",
-]
+from pyvmi.libvmi import Libvmi, C
 
-__title__ = "pyvmi"
-__summary__ = "Python binding to LibVMI"
-__uri__ = "http://www.libvmi.com"
 
-__version__ = "0.11.0"
-
-__author__ = "Bryan D. Payne"
-__email__ = "bdpayne@acm.org"
-
-__copyright__ = "Copyright 2012 Bryan Payne"
+def test_init():
+    Libvmi().init(C.VMI_AUTO | C.VMI_INIT_PARTIAL, 'winxpsp2')
