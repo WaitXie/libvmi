@@ -90,36 +90,6 @@ class Libvmi(object):
             raise LibvmiError()
         return ffi.buffer(data)
 
-    def zread_pa(self, paddr, length):
-        PAGE_SIZE = 0x1000
-        PAGE_MASK = 0xfff
-        PAGE_SHIFT = 12
-        print 'in zread'
-
-        data = ffi.new('unsigned char[%d]' % count)  # cffi inits with zeros
-        remaining = length
-        write_offset = 0
-
-        while remaining:
-            count = 0x1000
-
-            if paddr & PAGE_MASK:  # an offset was given
-                count = PAGE_SIZE - (paddr & PAGE_MASK)  # read to end of PAGE
-
-            if remaining < count:  # don't read more than requested
-                count = remaining
-
-            # ignore return value
-            lib.vmi_read_pa(self.vmi[0], paddr, data[write_offset], count)
-
-            remaining -= count
-            paddr += count
-            write_offset += count
-
-        rtn = struct.unpack('s#', ffi.buffer(data))
-        print rtn
-        return rtn
-
     def read_8_ksym(self, sym):
         return struct.unpack('B', self.read_ksym(sym, 1))[0]
 

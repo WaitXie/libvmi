@@ -71,12 +71,13 @@ class PyVmiAddressSpace(addrspace.BaseAddressSpace):
             pad = True
 
         try:
+            memory = self.vmi.read_pa(addr, length)
             if pad:
-                memory = self.vmi.zread_pa(addr, length)
+                memory = bytes(memory).ljust(length, '\0')
             else:
-                memory = self.vmi.read_pa(addr, length)
+                memory = bytes(memory)
         except:
-            memory = ''
+            memory = '\0' * length
 
         return memory
 
